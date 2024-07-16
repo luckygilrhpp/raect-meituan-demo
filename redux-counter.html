@@ -1,0 +1,41 @@
+<button id="decrement">-</button>
+<span id="count">0</span>
+<button id="increment">+</button>
+<script src="https://unpkq.com/redux@latest/dist/redus.min.js"></script>
+
+<script>
+  //1、定义reducer函数
+  //作用：根据不同的action对象返回 不同的新的state
+  function reducer(state = { count: 0 }, action) {
+    if (action.type === "INCREMENT") {
+      return { count: state.count + 1 };
+    }
+    if (action.type === "DECREMENT") {
+      return { count: state.count - 1 };
+    }
+    return state;
+  }
+  // 2、使用reducer函数创建store实例对象
+  const store = Redux.createStore(reducer);
+
+  // 3、、通过store对象的subscribe订阅数据变化  获取state
+  store.subscribe(() => {
+    const state = store.getState();
+    document.getElementById("count").innerText= state.count;
+  });
+  // 4、通过store对象的dispatch函数提交action更改状态
+
+  //增
+  const inBtn = document.getElementById("increment");
+  inBtn.addEventListener("click", () => {
+    store.dispatch({ type: "INCREMENT" });
+  });
+  //减
+  const deBtn = document.getElementById("decrement");
+  deBtn.addEventListener("click", () => {
+    store.dispatch({ type: "DECREMENT" });
+  });
+
+  //5、通过store实例的getState获取最新state状态更新到视图中
+
+</script>
